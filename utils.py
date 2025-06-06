@@ -1,7 +1,29 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from sklearn.metrics import roc_curve, auc, precision_recall_curve, average_precision_score
+from sklearn.metrics import roc_curve, auc, precision_recall_curve, average_precision_score, f1_score, precision_score, recall_score
 
+def plot_evaluation(model_name, y_test, y_pred):
+    print("(+) Ploting...")
+    f1= f1_score(y_test, y_pred, average= 'macro')
+    precision= precision_score(y_test, y_pred)
+    recall= recall_score(y_test, y_pred)
+    
+    metrics_text = f'F1={f1:.2f}, Prec={precision:.2f}, Rec={recall:.2f}'
+    
+    _, ax = plt.subplots(figsize=(20, 4))
+    ax.set_title(f'Comparing y_pred and y_test ({metrics_text})', fontsize = 25, pad = 25)
+    ax.plot(-1 * y_pred, color = '0.25', label = 'Predicted')
+    ax.plot(y_test, color = 'lightcoral', alpha = 0.75, lw = 2, label = 'True Label')
+    ax.fill_between(np.arange(len(y_pred)), -1 * y_pred, 0, color = '0.25')
+    ax.fill_between(np.arange(len(y_test)), 0, y_test, color = 'lightcoral')
+    ax.set_yticks([-1,0,1])
+    ax.set_yticklabels(['Predicted','Benign','Attacked'])
+    plt.suptitle("")
+
+    plt.tight_layout()  # Leaves space for figtext at the bottom  
+    #plt.savefig(f'ics-anomaly-detection-main/plots/{model_name}-{f1:.2f}.png', dpi=300)  
+    plt.show()
+    
 def plot_anomaly_detection_results(anomaly_scores: np.ndarray, true_labels: np.ndarray, threshold: float, anomaly_label: int = 1):
     """
     Generates time series plot to visualize anomaly scores over time (or index),
