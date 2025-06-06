@@ -5,7 +5,7 @@ from sklearn.preprocessing import StandardScaler
 
 def _preprocess_data(df: pd.DataFrame) -> pd.DataFrame:
     """
-    This includes dropping unnecessary columns, fixing categorical issues,
+    dropping unnecessary columns, fixing categorical issues,
     handling inf/nan values, and converting the 'Label' to binary (0 for benign, 1 for attack).
     """
     
@@ -31,7 +31,6 @@ def load_train_data(parquet_path: str = 'smallCiCDDoS/NTP-testing.parquet', test
     Load the train dataset.
     S1 contains data for fitting the GEM detector, and S2 for scoring baseline.
     Both S1 and S2 consist only of benign samples.
-    A StandardScaler is fitted on S1 and then used to transform both S1 and S2.
 
     Args:
         parquet_path (str): Path to the parquet file.
@@ -64,7 +63,6 @@ def load_train_data(parquet_path: str = 'smallCiCDDoS/NTP-testing.parquet', test
 def load_test_data(parquet_path: str = 'smallCiCDDoS/NTP-testing.parquet'):
     """
     Load the test dataset.
-    This dataset can include both benign and attack samples for evaluation.
 
     Args:
         parquet_path (str): Path to the parquet file.

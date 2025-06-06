@@ -1,11 +1,10 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from sklearn.metrics import roc_curve, auc, precision_recall_curve, average_precision_score, confusion_matrix, ConfusionMatrixDisplay
+from sklearn.metrics import roc_curve, auc, precision_recall_curve, average_precision_score
+
 def plot_anomaly_detection_results(anomaly_scores: np.ndarray, true_labels: np.ndarray, threshold: float, anomaly_label: int = 1):
     """
-    Generates a time series plot to visualize anomaly scores over time (or index),
-    with a logarithmic Y-axis, showing the detection threshold.
-    This plot style is adapted from the CRPS-ES paper for visualizing statistics over time.
+    Generates time series plot to visualize anomaly scores over time (or index),
 
     Args:
         anomaly_scores (np.ndarray): Anomaly scores calculated for the test data.
